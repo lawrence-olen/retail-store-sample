@@ -55,7 +55,7 @@ pipeline {
 
     stage (" Deploy Apps using Docker Compose ") {
       steps {
-        sshagent(credentials: [SECRET]) {
+        sshagent(credentials: [SECRET_PROD]) {
           sh """ssh -o StrictHostKeyChecking=no ${DOCKER_SERVER} << EOF
             cd ${COMPOSE_DIR}
             MYSQL_PASSWORD='testing' docker compose --file docker-compose.yml up -d
