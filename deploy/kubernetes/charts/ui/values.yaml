@@ -38,8 +38,8 @@ securityContext:
   runAsUser: 1000
 
 service:
-  type: ClusterIP
-  port: 80
+  type: NodePort
+  port: 30009
 
 resources:
   limits:
