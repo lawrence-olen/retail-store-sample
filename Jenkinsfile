@@ -31,6 +31,20 @@ pipeline {
       }
     }
 
+    stage (" Install Trivy ") {
+      steps {
+        script {
+          sshagent(credentials: [SECRET]) {
+            sh """
+            wget https://github.com/aquasecurity/trivy/releases/download/v0.40.0/trivy_0.40.0_Linux-64bit.deb
+            sudo dpkg -i trivy_0.40.0_Linux-64bit.deb
+            echo "Trivy installed successfully"
+            """
+          }
+        }
+      }
+    }
+
     stage (" Testing with wget spider ") {
       steps {
         script {
