@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   stages {
-    stage (" Pull Repository Retail Store Sample Apps ") {
+    stage (" Pull Repository Retail Store Sample ") {
       steps {
         script {
           sshagent(credentials: [SECRET]) {
