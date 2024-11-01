@@ -38,6 +38,21 @@ pipeline {
       }
     }
 
+    stage (" Pull and Push Docker Images ") {
+      steps {
+        sshagent(credentials: [SECRET]) {
+          sh """ssh -o StrictHostKeyChecking=no ${MASTER_SERVER} << EOF
+            cd ${MASTER_DIR}
+            docker pull public.ecr.aws/aws-containers/retail-store-sample-ui:0.8.2
+            docker tag public.ecr.aws/aws-containers/retail-store-sample-ui:0.8.2 crocoxolen/retail-store-sample-ui: latest
+            docker push crocoxolen/retail-store-sample-ui: latest
+            docker system prune -a -f
+            exit
+          EOF"""
+        }
+      }
+    }
+
     stage (" Deploy Apps using Helmfile ") {
       steps {
         sshagent(credentials: [SECRET]) {
