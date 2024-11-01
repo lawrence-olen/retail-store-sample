@@ -17,6 +17,27 @@ pipeline {
       }
     }
 
+    stage ( "Code Analysis" ) {
+      environment {
+        scannerHome = tool name: 'sonarqube'
+      }
+
+      steps {
+        script {
+          withSonarQubeEnv('sonarqube') {
+            sh """
+              ${scannerHome}/bin/sonar-scanner \
+              -Dsonar.projectKey=Retail-Store-Compose \
+              -Dsonar.sources=. \
+              -Dsonar.exclusions=**/*.java \
+              -Dsonar.host.url=${SONAR_URL} \
+              -Dsonar.login=${SONAR_TOKEN}
+            """
+          }
+        }
+      }
+    }
+
     stage (" Pull and Push Docker Images ") {
       steps {
         sshagent(credentials: [SECRET]) {
