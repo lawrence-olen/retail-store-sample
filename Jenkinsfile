@@ -17,20 +17,6 @@ pipeline {
       }
     }
 
-    stage (" Scan Images with Trivy") {
-      steps {
-        script {
-          sshagent(credentials: [SECRET]) {
-            sh"""
-              # Scan Docker image for vulnerabilities
-              trivy image --severity CRITICAL, HIGH crocoxolen/retail-store-sample-ui:latest
-              echo "Trivy Scan Success"
-            """
-          }
-        }
-      }
-    }
-
     stage (" Install Trivy ") {
       steps {
         script {
@@ -39,6 +25,20 @@ pipeline {
             wget https://github.com/aquasecurity/trivy/releases/download/v0.40.0/trivy_0.40.0_Linux-64bit.deb
             sudo dpkg -i trivy_0.40.0_Linux-64bit.deb
             echo "Trivy installed successfully"
+            """
+          }
+        }
+      }
+    }
+
+    stage (" Scan Images with Trivy") {
+      steps {
+        script {
+          sshagent(credentials: [SECRET]) {
+            sh"""
+              # Scan Docker image for vulnerabilities
+              trivy image --severity CRITICAL, HIGH crocoxolen/retail-store-sample-ui:latest
+              echo "Trivy Scan Success"
             """
           }
         }
