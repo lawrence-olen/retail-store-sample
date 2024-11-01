@@ -45,7 +45,7 @@ pipeline {
             cd ${MASTER_DIR}
             docker pull public.ecr.aws/aws-containers/retail-store-sample-catalog:0.8.2
             docker tag public.ecr.aws/aws-containers/retail-store-sample-catalog:0.8.2 crocoxolen/retail-store-sample-catalog:latest
-            docker push crocoxolen/retail-store-sample-ui:latest
+            docker push crocoxolen/retail-store-sample-catalog:latest
             docker system prune -a -f
             exit
           EOF"""
