@@ -7,7 +7,7 @@ pipeline {
         script {
           sshagent(credentials: [SECRET]) {
             sh """ssh -o StrictHostKeyChecking=no ${MASTER_SERVER} << EOF
-              cd ${MASTER_DIR}
+              cd ${MASTER_DIR_GIT}
               git checkout staging
               git pull testing staging
               exit
