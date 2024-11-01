@@ -17,7 +17,7 @@ pipeline {
       }
     }
 
-    stage (" Code Analysisi ") {
+    stage (" Code Analysis ") {
       environment {
         scannerHome = tool name: 'sonarqube'
       }
@@ -30,8 +30,8 @@ pipeline {
               -Dsonar.projectKey=Retail-Store-Helmfile \
               -Dsonar.sources=. \
               -Dsonar.exclusions=**/*.java \
-              -Dsonar.host.url=https://sonarqube-axiata.olen.studentdumbways.my.id \
-              -Dsonar.login=squ_a37cc99b5d7c9a228290036b53ce06b797772475
+              -Dsonar.host.url=${SONAR_URL} \
+              -Dsonar.login=${SONAR_TOKEN}
             """
           }
         }
