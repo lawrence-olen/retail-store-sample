@@ -8,7 +8,7 @@ pipeline {
           sshagent(credentials: [SECRET]) {
             sh """ssh -o StrictHostKeyChecking=no ${MASTER_SERVER} << EOF
               cd ${MASTER_DIR}
-              git pull origin staging
+              git pull testing staging
               exit
             EOF"""
           }
